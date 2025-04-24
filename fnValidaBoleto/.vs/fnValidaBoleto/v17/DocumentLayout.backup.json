@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\solan\\Desktop\\E-COMMERCE\\LAB004\\LABServeless\\fnValidaBoleto\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C3962567-39D5-4BE0-8B50-6B95527232BA}|fnValidaBoleto\\fnValidaBoleto.csproj|c:\\users\\solan\\desktop\\e-commerce\\lab004\\labserveless\\fnvalidaboleto\\fnvalidaboleto\\function1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3962567-39D5-4BE0-8B50-6B95527232BA}|fnValidaBoleto\\fnValidaBoleto.csproj|solutionrelative:fnvalidaboleto\\function1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Function1.cs",
+              "DocumentMoniker": "C:\\Users\\solan\\Desktop\\E-COMMERCE\\LAB004\\LABServeless\\fnValidaBoleto\\fnValidaBoleto\\Function1.cs",
+              "RelativeDocumentMoniker": "fnValidaBoleto\\Function1.cs",
+              "ToolTip": "C:\\Users\\solan\\Desktop\\E-COMMERCE\\LAB004\\LABServeless\\fnValidaBoleto\\fnValidaBoleto\\Function1.cs",
+              "RelativeToolTip": "fnValidaBoleto\\Function1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-24T19:41:23.314Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

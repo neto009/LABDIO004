@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerador de Código de Barras</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      background: #f5f6fa;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 400px;
+      margin: 60px auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 32px 24px 24px 24px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #555;
+      font-size: 15px;
+    }
+    input[type="date"],
+    input[type="number"] {
+      width: 100%;
+      padding: 8px 10px;
+      margin-bottom: 18px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 15px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #1976d2;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:disabled {
+      background: #90caf9;
+      cursor: not-allowed;
+    }
+    .result {
+      margin-top: 28px;
+      text-align: center;
+    }
+    .barcode-label {
+      font-weight: bold;
+      color: #444;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .barcode-text {
+      word-break: break-all;
+      font-size: 15px;
+      margin-bottom: 16px;
+      color: #222;
+    }
+    img {
+      max-width: 100%;
+      height: 80px;
+      margin: 0 auto;
+      display: block;
+    }
+    .error {
+      color: #d32f2f;
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Gerador de Código de Barras</h2>
+    <form id="barcodeForm">
+      <label for="dataVencimento">Data de Vencimento</label>
+      <input type="date" id="dataVencimento" name="dataVencimento" required>
+      <label for="valor">Valor</label>
+      <input type="number" id="valor" name="valor" min="0" step="any" required>
+      <button type="submit" id="gerarBtn">Gerar Código</button>
+    </form>
+    <div class="result" id="result" style="display:none;">
+      <span class="barcode-label">Código de Barras:</span>
+      <div class="barcode-text" id="barcode"></div>
+      <img id="barcodeImg" alt="Código de Barras" />
+    </div>
+    <div class="error" id="error" style="display:none;"></div>
+  </div>
+  <script>
+    const form = document.getElementById('barcodeForm');
+    const resultDiv = document.getElementById('result');
+    const barcodeDiv = document.getElementById('barcode');
+    const barcodeImg = document.getElementById('barcodeImg');
+    const errorDiv = document.getElementById('error');
+    const gerarBtn = document.getElementById('gerarBtn');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      resultDiv.style.display = 'none';
+      errorDiv.style.display = 'none';
+      gerarBtn.disabled = true;
+      gerarBtn.textContent = 'Gerando...';
+
+      const dataVencimento = document.getElementById('dataVencimento').value;
+      const valor = document.getElementById('valor').value;
+
+      try {
+        const response = await fetch('http://localhost:7273/api/barcode-generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ dataVencimento, valor: Number(valor) })
+        });
+        if (!response.ok) throw new Error('Erro ao gerar código de barras');
+        const data = await response.json();
+        barcodeDiv.textContent = data.barcode || '';
+        if (data.imagemBase64) {
+          barcodeImg.src = 'data:image/png;base64,' + data.imagemBase64;
+          barcodeImg.style.display = 'block';
+        } else {
+          barcodeImg.style.display = 'none';
+        }
+        resultDiv.style.display = 'block';
+      } catch (err) {
+        errorDiv.textContent = err.message;
+        errorDiv.style.display = 'block';
+      }
+      gerarBtn.disabled = false;
+      gerarBtn.textContent = 'Gerar Código';
+    });
+  </script>
+</body>
+</html>
